@@ -4,18 +4,28 @@
     <div class="col-md-3">
         
         <div class="card">
-           <div class="card-body">
+           <div class="card-body"> <%# edit post form %>
                 <h3 class="card-title text-center">Editing Post</h3>
                 <%= render 'form', post: @post %>
            </div> 
         </div>
     </div>
-    <div class="col-md-0">
-        <%= form_with(model: [@post, @paragraph]) do |form| %>
-            <%= form.submit %>
+    <div class="col-md-9">
+        <div class="mb-4"> 
+            <%= form_with(model: [@post, @paragraph]) do |form| %> <%# paragraf elementi %>
+                <%= form.hidden_field :element_type, value: 'paragraph' %>
+                <%= form.submit "Paragraph", class: 'btn btn-primary' %>
+            <% end %>
+        </div>
+        <% @post.elements.each do |element| %>
+            <% unless element.persisted? %> <%# elementlerin tümünü gösterme %>
+                <%= form_with(model: [@post, element]) do |form| %> <%# tüm elementler için form oluştur %>
+                    <%= form.text_area :content %>
+                    <%= form.submit "Save", class: 'btn btn-primary' %>
+                <% end %>
+            <% end %>
         <% end %>
     </div>
-
 </div>
 
 
