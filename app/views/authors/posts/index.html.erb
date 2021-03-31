@@ -1,6 +1,18 @@
-<p id="notice"><%= notice %></p>
+<h4 class="d-flex justify-content-between mb-5">
+<span>Posts</span>
+<%= link_to 'New Post', new_post_path, class: 'btn btn-dark' %>
+</h4>
 
-<h1>Posts</h1>
+<% @posts.each do |post| %>
+  <%= link_to edit_post_path(post), class: 'text-decoration-none' do %>
+    <div class="card  mb-3">
+      <div class="card-body">
+        <h4 class="card-title text-dark mb-2"> <%= post.title %> </h4>
+        <p class="text-secondary mb-0"> <%= post.description %>  </p>
+      </div>
+    </div>
+  <%end%>
+<% end %>
 
 <table>
   <thead>
@@ -32,4 +44,4 @@
 
 <br>
 
-<%= link_to 'New Post', new_post_path %>
+
