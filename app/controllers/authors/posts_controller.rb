@@ -17,35 +17,34 @@ module Authors
 
     # GET /posts/1/edit
     def edit
-      @paragraph = @post.elements.build(element_type:'paragraph')
+      @element = @post.elements.build
     end
 
     # POST /posts or /posts.json
     def create
       @post = current_author.posts.build(post_params)
 
-      respond_to do |format|
+     
         if @post.save
-          format.html { redirect_to @post, notice: "Post was successfully created." }
-          format.json { render :show, status: :created, location: @post }
+          redirect_to edit_post_path(@post)
+          
         else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
+          render :new
+          
         end
-      end
+      
     end
 
     # PATCH/PUT /posts/1 or /posts/1.json
     def update
-      respond_to do |format|
+      
         if @post.update(post_params)
-          format.html { redirect_to @post, notice: "Post was successfully updated." }
-          format.json { render :show, status: :ok, location: @post }
+          redirect_to edit_post_path(@post)
+          
         else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
+          render :edit
         end
-      end
+      
     end
 
     # DELETE /posts/1 or /posts/1.json
@@ -65,7 +64,7 @@ module Authors
 
       # Only allow a list of trusted parameters through.
       def post_params
-        params.require(:post).permit(:title, :description)
+        params.require(:post).permit(:title, :description, :header_image)
       end
   end
 end

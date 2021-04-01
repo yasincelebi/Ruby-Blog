@@ -1,0 +1,21 @@
+.authors {
+  .paragraph {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .image {
+    text-align: center;
+    img {
+      max-width: 80%;
+    }
+  }
+  #element_content {
+    cursor: auto;
+  }
+
+  .header-img {
+    width: 100%;
+    height: 110px;
+  }
+}

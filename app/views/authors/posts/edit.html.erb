@@ -12,19 +12,65 @@
     </div>
     <div class="col-md-9">
         <div class="mb-4"> 
-            <%= form_with(model: [@post, @paragraph]) do |form| %> <%# paragraf elementi %>
+            <%= form_with(model: [@post, @element], html: {class: 'float-left mr-3'}) do |form| %> <%# paragraf elementi %>
                 <%= form.hidden_field :element_type, value: 'paragraph' %>
                 <%= form.submit "Paragraph", class: 'btn btn-primary' %>
             <% end %>
-        </div>
-        <% @post.elements.each do |element| %>
-            <% unless element.persisted? %> <%# elementlerin tümünü gösterme %>
-                <%= form_with(model: [@post, element]) do |form| %> <%# tüm elementler için form oluştur %>
-                    <%= form.text_area :content %>
-                    <%= form.submit "Save", class: 'btn btn-primary' %>
-                <% end %>
+            <%= form_with(model: [@post, @element]) do |form| %> <%# image elementi %>
+                <%= form.hidden_field :element_type, value: 'image' %>
+                <%= form.submit "Image", class: 'btn btn-dark' %>
             <% end %>
-        <% end %>
+        </div>
+        <div class="card">
+            <div class="card-body pt-4">
+                <% @post.elements.each do |element| %>
+                    <% if element.persisted? %> <%# mevcut elementler için form gösterme %>
+                        <% if element.paragraph? %>
+                            <div class="mb-4 paragraph">
+                                <div class="p-content">
+                                    <% if element.content.present? %>
+                                        <%= element.content %>
+                                    <% else %> 
+                                        Click to add content
+                                    <%end%>
+                                </div>
+                                <div class="p-form d-none">
+                                    <%= form_with(model: [@post, element]) do |form| %> <%# tüm elementler için form oluştur %>
+                                        <%= form.rich_text_area :content %>
+                                        <div class="mt-4 d-flex justify-content-between">
+                                            <div>
+                                                <%= form.submit "Save", class: 'btn btn-primary' %>
+                                                <a href="#" class="cancel btn btn-danger">Cancel</a>
+                                            </div>
+                                            <%= link_to 'Delete', post_element_path(@post,element), method: :delete, class: 'btn btn-danger' %>
+                                            
+                                        </div>
+                                    <% end %>
+                                </div>
+                            </div>
+
+                        <% elsif element.image? %>
+                            <div class="mb-4 image">
+                                <% if element.image.present? %>
+                                    <%= image_tag(element.image) %>
+                                    <div>
+                                    <%= link_to 'Delete', post_element_path(@post,element), method: :delete, class: 'btn btn-danger mt-3' %>
+                                    </div>
+                                <% else %>
+                                    <%= form_with(model: [@post, element]) do |form| %> <%# tüm elementler için form oluştur %>
+                                        <%= form.file_field :image %>
+                                        <div class="mt-4">
+                                            <%= form.submit "Save", class: 'btn btn-primary' %>
+                                            <a href="#" class="cancel btn btn-danger">Cancel</a>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        <%end%>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
     </div>
 </div>
 
