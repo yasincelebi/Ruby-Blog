@@ -18,22 +18,22 @@
 
 ### **Clone respected git repository**
 
-## `git clone https://github.com/yasincelebi/Ruby-Blog.git`
+### `git clone https://github.com/yasincelebi/Ruby-Blog.git`
 
 ### **Install all dependencies**
 
-## `bundle install` and
+### `bundle install` and
 
-## `yarn add` or `npm install`
+### `yarn add` or `npm install`
 
 ### **Create db and migrate schema**
 
-## `rails db:create`
+### `rails db:create`
 
 and
 
-## `rails db:migrate`
+### `rails db:migrate`
 
 ### **Now run your application**
 
-## `rails s`
+### `rails s`
