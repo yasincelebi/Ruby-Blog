@@ -37,3 +37,9 @@ and
 ### **Now run your application**
 
 ### `rails s`
+
+### I used sortablejs for sorting by drag and drop
+    https://github.com/SortableJS/Sortable
+
+### Used devise for authentication
+    https://github.com/heartcombo/devise
