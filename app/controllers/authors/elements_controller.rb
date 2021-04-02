@@ -1,7 +1,7 @@
 module Authors
   class ElementsController < AuthorsController
     before_action :set_post
-    before_action :set_element, only: %i[ update destroy ]
+    before_action :set_element, only: [:show, :edit, :update, :destroy]
    
 
 
@@ -15,7 +15,7 @@ module Authors
           notice = @element.errors.full_messages.join('. ') << '.'
         end
         redirect_to edit_post_path(@post), notice: notice
-      end
+    end
     
 
     # İki saatimi aldı
@@ -27,7 +27,7 @@ module Authors
       end
     end
 
-    # DELETE /elements/1 or /elements/1.json
+    
     def destroy
       if(@element.destroy)
         redirect_to edit_post_path(@post), notice: 'Element was successfully destroyed'
@@ -42,12 +42,12 @@ module Authors
         @post = current_author.posts.find(params[:post_id])
       end
 
-      # Use callbacks to share common setup or constraints between actions.
+      
       def set_element
-        @element = @post.elements.find(params[:id])
+        @element = Element.find(params[:id])
       end
 
-      # Only allow a list of trusted parameters through.
+      
       def element_params
         params.require(:element).permit(:element_type, :content, :image)
       end

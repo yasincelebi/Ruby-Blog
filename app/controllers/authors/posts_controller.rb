@@ -1,11 +1,10 @@
 module Authors
   class PostsController < AuthorsController
-    before_action :set_post, only: %i[  edit update destroy ]
+    before_action :set_post, only: %i[ edit update destroy ]
 
     # GET /posts or /posts.json
     def index
-      @posts = current_author.posts
-      
+      @posts = Post.all
     end
 
 
@@ -47,12 +46,12 @@ module Authors
       
     end
 
-    # DELETE /posts/1 or /posts/1.json
+    
     def destroy
-      @post.destroy
-      respond_to do |format|
-        format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-        format.json { head :no_content }
+      if @post.destroy
+        redirect_to posts_url, notice: "Post was successfully destroyed."
+      else
+        render :new
       end
     end
 
@@ -64,7 +63,7 @@ module Authors
 
       # Only allow a list of trusted parameters through.
       def post_params
-        params.require(:post).permit(:title, :description, :header_image)
+        params.require(:post).permit(:title, :description, :header_image,:content)
       end
   end
 end

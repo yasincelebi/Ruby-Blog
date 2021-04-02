@@ -15,6 +15,8 @@ ActiveStorage.start();
 require("trix");
 require("@rails/actiontext");
 
+// elementleri sürükle bırak yapabilmek için kütüphane
+import Sortable from "sortablejs";
 // element düzenlemek için üzerine tıklamalısın.
 document.addEventListener("turbolinks:load", () => {
   document.addEventListener("click", () => {
@@ -23,6 +25,7 @@ document.addEventListener("turbolinks:load", () => {
 
     element.classList.add("d-none");
     element.nextElementSibling.classList.remove("d-none");
+    event.preventDefault();
   });
 
   document.addEventListener("click", () => {
@@ -32,5 +35,9 @@ document.addEventListener("turbolinks:load", () => {
 
     element.classList.add("d-none");
     element.previousElementSibling.classList.remove("d-none");
+    event.preventDefault();
   });
+  // (https://github.com/SortableJS/Sortable)
+  let element = document.getElementById("elements");
+  Sortable.create(elements, { animation: 150, delay: 100 }); // mobil için delay eklendi
 });

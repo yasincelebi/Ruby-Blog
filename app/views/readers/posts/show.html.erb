@@ -1,0 +1,20 @@
+
+<div class="card">
+    <%= image_tag @posts.header_image, class: "header-img w-100 h-10 card-img-top mx-auto", alt: 'Card image cap' if @posts.header_image.attached? %>
+    <div class="card-body">
+        <div class="p-5">
+            <h1 class="card-title text-center"><%= @posts.title %></h1>
+            <% @posts.elements.each do |element| %>
+                <% if element.image? %>
+                    <div class="image-element mb-5">
+                        <%= image_tag(element.image) %>
+                    </div>
+                <% else %>
+                    <div class="content-element mb-5">
+                        <%= element.content %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
