@@ -16,7 +16,7 @@
 
 **Make sure Bundle is installed**
 
-### **Clone respected git repository**
+### **Clone this git repository**
 
 ### `git clone https://github.com/yasincelebi/Ruby-Blog.git`
 
