@@ -7,7 +7,7 @@
             <% @posts.elements.each do |element| %>
                 <% if element.image? %>
                     <div class="image-element mb-5">
-                        <%= image_tag(element.image) %>
+                        <%= image_tag(element.image, :class => "w-100")  %>
                     </div>
                 <% else %>
                     <div class="content-element mb-5">
